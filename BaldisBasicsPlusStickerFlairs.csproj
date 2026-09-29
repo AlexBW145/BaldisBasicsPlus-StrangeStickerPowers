@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>StickerHiddenPowers</AssemblyName>
+    <Version>1.0.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
+    </RestoreAdditionalProjectSources>
+    <RootNamespace>StickerPowers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="UnityEngine.Modules" Version="2020.3.38" IncludeAssets="compile" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" Publicize="true">
+      <HintPath>..\..\..\SteamLibrary\steamapps\common\Baldi's Basics Plus\BALDI_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MTM101BaldAPI">
+      <HintPath>..\..\..\SteamLibrary\steamapps\common\Baldi's Basics Plus\BepInEx\plugins\MTM101BaldAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\SteamLibrary\steamapps\common\Baldi's Basics Plus\BALDI_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo F|xcopy /Y &quot;$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).dll&quot; &quot;D:\SteamLibrary\steamapps\common\Baldi's Basics Plus\BepInEx\plugins\$(AssemblyName).dll&quot;" />
+		<Exec Command="echo F|xcopy /Y &quot;$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).pdb&quot; &quot;D:\SteamLibrary\steamapps\common\Baldi's Basics Plus\BepInEx\plugins\$(AssemblyName).pdb&quot;" />
+		<Exec Command="echo D|xcopy /S /Q /Y &quot;$(ProjectDir)alexbw145.bbplus.stickerpowers\&quot; &quot;D:\SteamLibrary\steamapps\common\Baldi's Basics Plus\BALDI_Data\StreamingAssets\Modded\alexbw145.bbplus.stickerpowers\&quot;" />
+	</Target>
+</Project>
