@@ -29,11 +29,11 @@ internal static class StickerPowerPatches
                         __result++;
                         break;
                     case StickerPower.Handmade:
-                        __result += Mathf.CeilToInt(__instance.TotalInInventory(sticker) / 3f);
+                        __result += Mathf.CeilToInt(__instance.TotalInInventory(sticker) / 4f);
                         break;
                     case StickerPower.Burning:
                         var burning = (StickerPowerBurningStateData)activeStickerData[i];
-                        __result += Mathf.RoundToInt((120 - burning.timer) / 14f);
+                        __result += Mathf.RoundToInt((120 - burning.timer) / 27f);
                         break;
                 }
             }
