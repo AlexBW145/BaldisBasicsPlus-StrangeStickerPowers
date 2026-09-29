@@ -40,7 +40,7 @@ public class StickerPowerBurningStateData(PoweredStickerData power, StickerState
     private int lastValue = StickerManager.Instance?.StickerValue(sticker.sticker) ?? 1;
     internal void Update()
     {
-        timer -= Time.deltaTime;
+        timer -= (BaseGameManager.Instance?.Ec?.PlayerTimeScale ?? 0) * Time.deltaTime;
         if (lastValue != StickerManager.Instance.StickerValue(sticker.sticker))
         {
             lastValue = StickerManager.Instance.StickerValue(sticker.sticker);

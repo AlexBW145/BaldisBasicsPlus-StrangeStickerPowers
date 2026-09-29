@@ -114,7 +114,7 @@ internal static class StickerRarityPatches
         .InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0), new CodeInstruction(OpCodes.Ldloc_0),
         Transpilers.EmitDelegate(Organize), new CodeInstruction(OpCodes.Stloc_0))
         .InstructionEnumeration();
-    [ConditionalPatchNoMod("mtm101.rulerp.baldiplus.baldiarcade"), HarmonyPatch(typeof(StickerScreenController), "UpdateStickerInventoryPositions"), HarmonyPostfix]
+    [HarmonyPatch(typeof(StickerScreenController), "UpdateStickerInventoryPositions"), HarmonyPostfix]
     private static void UpdateCount(StickerScreenController __instance)
     {
         for (int i = 0; i < __instance.inventoryStickers.Count; i++)
