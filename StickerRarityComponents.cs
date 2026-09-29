@@ -133,7 +133,7 @@ public class BurningPowerStickerData() : SimplePowerStickerData()
 {
     public override StickerPowerStateData CreateStateData(StickerStateData sticker) => new StickerPowerBurningStateData(this, sticker, UnityEngine.Random.Range(80, 120));
     public override bool IsValid(ExtendedStickerData data) => base.IsValid(data) && !data.sticker.GetMeta().flags.HasFlag(StickerFlags.IsBonus)
-        && data.sticker != Sticker.MapRange && data.sticker != Sticker.InventorySlot && data.stickerValueCap > 4 && !data.sticker.GetMeta().tags.Contains("stickerpowers_burnless"); // Signal Boost sticker slows the game with a high sticker value.
+        && !data.sticker.GetMeta().tags.Contains("stickerpowers_burnless"); // From the previous math part, Signal Boost sticker slows the game with a high sticker value.
 }
 [Serializable]
 public class DecayingPowerStickerData() : SimplePowerStickerData()

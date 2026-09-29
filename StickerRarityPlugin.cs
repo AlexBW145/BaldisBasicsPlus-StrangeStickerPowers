@@ -86,6 +86,8 @@ public class StickerRarityPlugin : BaseUnityPlugin
             .Build();
         var shader = assets.Get<Shader>("CustomShader");
         StickerPowerSave.Instance.Reset();
+        StickerMetaStorage.Instance.Get(Sticker.InventorySlot).tags.Add("stickerpowers_powerless");
+        //StickerMetaStorage.Instance.Get(Sticker.MapRange).tags.Add("stickerpowers_burnless"); // Maybe? I nerfed the power too hard.
 
         yield return "Creating Sticker Flair - Foil";
         var foilMaterial = Instantiate(baseMaterial);

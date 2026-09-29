@@ -33,7 +33,7 @@ internal static class StickerPowerPatches
                         break;
                     case StickerPower.Burning:
                         var burning = (StickerPowerBurningStateData)activeStickerData[i];
-                        __result += Mathf.RoundToInt((120 - burning.timer) / 27f);
+                        __result += Mathf.RoundToInt((120 - burning.timer) / 27f); // From the experimental previous math part, Signal Boost sticker slows the game with a high sticker value.
                         break;
                 }
             }
