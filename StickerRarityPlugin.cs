@@ -105,7 +105,7 @@ public class StickerRarityPlugin : BaseUnityPlugin
 
         yield return "Creating Sticker Flair - Holographic";
         var holoMaterial = Instantiate(baseMaterial);
-        holoMaterial.name = "StickerMaterial_Foil";
+        holoMaterial.name = "StickerMaterial_Holographic";
         holoMaterial.shader = shader;
         holoMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("HolographicStickerTexture"));
         holoMaterial.SetVector("_Tiling", Vector2.one * 0.5f);
@@ -119,7 +119,7 @@ public class StickerRarityPlugin : BaseUnityPlugin
 
         yield return "Creating Sticker Flair - Shiny";
         var shinyMaterial = Instantiate(baseMaterial);
-        shinyMaterial.name = "StickerMaterial_Foil";
+        shinyMaterial.name = "StickerMaterial_Shiny";
         shinyMaterial.shader = shader;
         shinyMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("ShinyStickerTexture"));
         shinyMaterial.SetVector("_Tiling", Vector2.one * 2f);
@@ -452,12 +452,10 @@ public class StickerPowerBuilder<PowerData>(PluginInfo info) where PowerData : P
     {
         PowerData stickerData = new PowerData();
         if (stickerEnumName == "")
-        {
-            if (info != StickerPowerSave.Instance.pluginInfo && stickerEnum == StickerPower.NoPower) throw new Exception("You must assign an enum to the sticker power!");
             stickerData.stickerPower = stickerEnum;
-        }
         else
             stickerData.stickerPower = EnumExtensions.ExtendEnum<StickerPower>(stickerEnumName);
+        if (info != StickerPowerSave.Instance.pluginInfo && stickerData.stickerPower == StickerPower.NoPower) throw new Exception("You must assign an enum to the sticker power!");
         if (visuallyAnimated)
             StickerRarityAnimator.materials.Add(material);
         SimplePowerStickerData.assignedMaterials.Add(stickerData.stickerPower, material);
