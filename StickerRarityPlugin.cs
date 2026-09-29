@@ -57,7 +57,8 @@ public class StickerRarityPlugin : BaseUnityPlugin
             { "StickerPower_Shiny", "Shiny" },
             { "StickerPower_Handmade", "Handmade" },
             { "StickerPower_Burning", "On Fire" },
-            { "StickerPower_Decay", "Decaying" }
+            { "StickerPower_Decay", "Decaying" },
+            { "Sfx_FireFueled", "[Something burned]" }
         });
         var bundle = AssetBundle.LoadFromFile(Path.Combine(AssetLoader.GetModPath(this), $"stickerpowershader{Application.platform switch
         {
@@ -94,11 +95,11 @@ public class StickerRarityPlugin : BaseUnityPlugin
         foilMaterial.SetVector("_Tiling", Vector2.one * 0.25f);
         //foilMaterial.SetTextureScale("_DetailTex", Vector2.one * 64f);
         //foilMaterial.SetFloat("_Strength", 1f);
-        var foilPower = new StickerPowerBuilder<SimplePowerStickerData>(Info)
+        new StickerPowerBuilder<SimplePowerStickerData>(Info)
             .SetEnum(StickerPower.Foil)
             .SetMaterial(foilMaterial)
             .Build();
-        foilPower.stickerPower.ApplyChance(0.0235f);
+        StickerPower.Foil.ApplyChance(0.0235f);
 
         yield return "Creating Sticker Flair - Holographic";
         var holoMaterial = Instantiate(baseMaterial);
@@ -108,11 +109,11 @@ public class StickerRarityPlugin : BaseUnityPlugin
         holoMaterial.SetVector("_Tiling", Vector2.one * 0.5f);
         //holoMaterial.SetTextureScale("_DetailTex", Vector2.one * 64f);
         //holoMaterial.SetFloat("_Strength", 1f);
-        var holoPower = new StickerPowerBuilder<SimplePowerStickerData>(Info)
+        new StickerPowerBuilder<SimplePowerStickerData>(Info)
             .SetEnum(StickerPower.Holographic)
             .SetMaterial(holoMaterial)
             .Build();
-        holoPower.stickerPower.ApplyChance(0.0025f);
+        StickerPower.Holographic.ApplyChance(0.0025f);
 
         yield return "Creating Sticker Flair - Shiny";
         var shinyMaterial = Instantiate(baseMaterial);
@@ -120,11 +121,11 @@ public class StickerRarityPlugin : BaseUnityPlugin
         shinyMaterial.shader = shader;
         shinyMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("ShinyStickerTexture"));
         shinyMaterial.SetVector("_Tiling", Vector2.one * 2f);
-        var shinyPower = new StickerPowerBuilder<SimplePowerStickerData>(Info)
+        new StickerPowerBuilder<SimplePowerStickerData>(Info)
             .SetEnum(StickerPower.Shiny)
             .SetMaterial(shinyMaterial)
             .Build();
-        shinyPower.stickerPower.ApplyChance(0.1f);
+        StickerPower.Shiny.ApplyChance(0.1f);
 
         yield return "Creating Sticker Flair - Handmade";
         var handmadeMaterial = Instantiate(baseMaterial);
@@ -132,12 +133,12 @@ public class StickerRarityPlugin : BaseUnityPlugin
         handmadeMaterial.shader = shader;
         handmadeMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("HandmadeStickerTexture"));
         handmadeMaterial.SetVector("_Tiling", Vector2.one * 0.75f);
-        var handmadePower = new StickerPowerBuilder<SimplePowerStickerData>(Info)
+        new StickerPowerBuilder<SimplePowerStickerData>(Info)
             .SetEnum(StickerPower.Handmade)
             .SetMaterial(handmadeMaterial)
             .MarkVisualAsNotAnimated()
             .Build();
-        handmadePower.stickerPower.ApplyChance(0.025f);
+        StickerPower.Handmade.ApplyChance(0.055f);
 
         yield return "Creating Sticker Flair - On Fire";
         var fireMaterial = Instantiate(baseMaterial);
@@ -146,11 +147,11 @@ public class StickerRarityPlugin : BaseUnityPlugin
         fireMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("BurningStickerTexture"));
         fireMaterial.SetVector("_Tiling", Vector2.one * 4f);
         fireMaterial.SetColor("_Color", new(1f, 1f, 0f));
-        var fire = new StickerPowerBuilder<BurningPowerStickerData>(Info)
+        new StickerPowerBuilder<BurningPowerStickerData>(Info)
             .SetEnum(StickerPower.Burning)
             .SetMaterial(fireMaterial)
             .Build();
-        fire.stickerPower.ApplyChance(0.045f);
+        StickerPower.Burning.ApplyChance(0.085f);
         StickerPowerBurningStateData.burned = AssetFinder.FindOfTypeWithName<SoundObject>("FireFueled", true);
 
         yield return "Creating Sticker Flair - Decaying";
@@ -159,12 +160,12 @@ public class StickerRarityPlugin : BaseUnityPlugin
         decayMaterial.shader = shader;
         decayMaterial.SetTexture("_DetailTex", assets.Get<Texture2D>("DecayingStickerTexture"));
         decayMaterial.SetVector("_Tiling", Vector2.one * 1f);
-        var decay = new StickerPowerBuilder<DecayingPowerStickerData>(Info)
+        new StickerPowerBuilder<DecayingPowerStickerData>(Info)
             .SetEnum(StickerPower.Decay)
             .SetMaterial(decayMaterial)
             .MarkVisualAsNotAnimated()
             .Build();
-        decay.stickerPower.ApplyChance(0.1f);
+        StickerPower.Decay.ApplyChance(0.1f);
     }
 }
 

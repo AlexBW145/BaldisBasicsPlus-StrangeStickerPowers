@@ -25,7 +25,7 @@ internal static class StickerPowerPatches
                     case StickerPower.Foil:
                         __result += __instance.activeStickerData.Count(d => d.sticker == sticker);
                         break;
-                    case StickerPower.Shiny:
+                    case StickerPower.Shiny or StickerPower.Decay:
                         __result++;
                         break;
                     case StickerPower.Handmade:
@@ -33,15 +33,12 @@ internal static class StickerPowerPatches
                         break;
                     case StickerPower.Burning:
                         var burning = (StickerPowerBurningStateData)activeStickerData[i];
-                        __result += Mathf.RoundToInt((120 - burning.timer) / 10f);
-                        break;
-                    case StickerPower.Decay:
-                        __result += 4;
+                        __result += Mathf.RoundToInt((120 - burning.timer) / 14f);
                         break;
                 }
-                __result = Mathf.Min(__result, StickerMetaStorage.Instance.Get(sticker).value.stickerValueCap);
             }
         }
+        __result = Mathf.Min(__result, StickerMetaStorage.Instance.Get(sticker).value.stickerValueCap);
     }
     [HarmonyPatch(typeof(StickerManager), "Update"), HarmonyPostfix]
     private static void BurningTime()
