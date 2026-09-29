@@ -25,10 +25,10 @@ public class StickerPowerStateData(PoweredStickerData power, StickerStateData st
     public PoweredStickerData power = power;
     public StickerStateData sticker = sticker;
 
-    internal virtual void Write(BinaryWriter writer)
+    protected internal virtual void Write(BinaryWriter writer)
     {
     }
-    internal virtual void Read(BinaryReader reader)
+    protected internal virtual void Read(BinaryReader reader)
     {
     }
 }
@@ -56,12 +56,12 @@ public class StickerPowerBurningStateData(PoweredStickerData power, StickerState
         }
     }
 
-    internal override void Write(BinaryWriter writer)
+    protected internal override void Write(BinaryWriter writer)
     {
         base.Write(writer);
         writer.Write(timer);
     }
-    internal override void Read(BinaryReader reader)
+    protected internal override void Read(BinaryReader reader)
     {
         base.Read(reader);
         timer = reader.ReadSingle();
@@ -84,12 +84,12 @@ public class StickerPowerDecayingStateData(PoweredStickerData power, StickerStat
         }
     }
 
-    internal override void Write(BinaryWriter writer)
+    protected internal override void Write(BinaryWriter writer)
     {
         base.Write(writer);
         writer.Write(notebooksCollected);
     }
-    internal override void Read(BinaryReader reader)
+    protected internal override void Read(BinaryReader reader)
     {
         base.Read(reader);
         notebooksCollected = reader.ReadInt32();
