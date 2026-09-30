@@ -41,11 +41,6 @@ public class StickerPowerBurningStateData(PoweredStickerData power, StickerState
     internal void Update()
     {
         timer -= (BaseGameManager.Instance?.Ec?.PlayerTimeScale ?? 0) * Time.deltaTime;
-        if (lastValue != StickerManager.Instance.StickerValue(sticker.sticker))
-        {
-            lastValue = StickerManager.Instance.StickerValue(sticker.sticker);
-            StickerManager.Instance.applyStickers = true;
-        }
         if (timer <= 0f)
         {
             var slot = StickerManager.Instance.activeStickerData.ToList().IndexOf(sticker);
@@ -53,6 +48,11 @@ public class StickerPowerBurningStateData(PoweredStickerData power, StickerState
             StickerManager.Instance.ApplySticker(new StickerStateData(Sticker.Nothing, 0, true, false), slot);
             StickerManager.Instance.appliedStickerRemainingNotebooks[slot] = 0;
             CoreGameManager.Instance.audMan.PlaySingle(burned);
+        }
+        else if (lastValue != StickerManager.Instance.StickerValue(sticker.sticker))
+        {
+            lastValue = StickerManager.Instance.StickerValue(sticker.sticker);
+            StickerManager.Instance.applyStickers = true;
         }
     }
 

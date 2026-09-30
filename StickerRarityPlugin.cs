@@ -21,7 +21,7 @@ public class StickerRarityPlugin : BaseUnityPlugin
     public const string 
         PLUGIN_GUID = "alexbw145.bbplus.stickerpowers",
         PLUGIN_NAME = "Strange New Sticker Powers",
-        PLUGIN_VERSION = "1.0.0.0";
+        PLUGIN_VERSION = "1.0.0.1";
     internal static new ManualLogSource Logger;
     private static readonly AssetManager assets = new AssetManager();
     internal static StickerRarityPlugin Instance { get; private set; }
@@ -293,7 +293,7 @@ internal class StickerPowerSave(PluginInfo info) : ModdedSaveGameIOBinary
         for (int i = 0; i < activeStickerData.Length; i++)
         {
             writer.Write(activeStickerData[i].power.stickerPower.ToStringExtended());
-            powers[i].Write(writer);
+            activeStickerData[i].Write(writer);
         }
     }
 
@@ -312,7 +312,7 @@ internal class StickerPowerSave(PluginInfo info) : ModdedSaveGameIOBinary
         tracker = new List<StickerStateData>();
         appliedTracker = new StickerStateData[4];
         StickerManager.Instance.OnStickerApplied += StickersUpdated;
-}
+    }
 }
 
 public static class StickerPowerExtensions
